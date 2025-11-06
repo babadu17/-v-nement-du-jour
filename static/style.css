@@ -54,7 +54,7 @@ h2 {
     margin-right: 10%;
 }
 
-.avis input {
+input {
     width: 50%;
     height: 20%;
     border: 1px solid #ccc;
@@ -62,7 +62,7 @@ h2 {
     font-size: 16px;
 }
 
-.avis input[type="submit"] {
+input[type="submit"] {
     background-color: rgb(27, 49, 217);
     color: white;
     border: none;
