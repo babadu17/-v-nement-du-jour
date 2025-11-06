@@ -11,7 +11,7 @@
     {% if avis_list %}
         <ul>
         {% for avis in avis_list %}
-            <li>{{ avis[0] }}</li>
+            <li>De {{ avis[2] }} {{ avis[1] }} : {{ avis[0] }}</li>
         {% endfor %}
         </ul>
     {% else %}
