@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Bienvenue</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <p>Bienvenue sur le site des événements historiques</p>
+  </header>
+
+  <main style="text-align:center; margin-top:30px;">
+    <h2>Veuillez entrer votre nom et prénom :</h2>
+    <form method="POST">
+      <input type="text" name="nom" placeholder="Nom" required><br><br>
+      <input type="text" name="prenom" placeholder="Prénom" required><br><br>
+      <input type="submit" value="Continuer">
+    </form>
+  </main>
+</body>
+</html>

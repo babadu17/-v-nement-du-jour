@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Statistiques visiteurs</title>
+  <style>
+    body { font-family: Arial; margin: 30px; background: #f4f4f4; }
+    h1 { color: rgb(27, 49, 217); }
+    table { border-collapse: collapse; width: 100%; background: white; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background: rgb(255, 230, 88); }
+  </style>
+</head>
+<body>
+  <h1>📊 Statistiques des visiteurs</h1>
+  <p>Moyenne de visites par personne : {{ "%.2f"|format(moyenne) }}</p>
+  <table>
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Adresse IP</th>
+      <th>Nombre de visites</th>
+      <th>Dernière visite</th>
+    </tr>
+    {% for v in visiteurs %}
+    <tr>
+      <td>{{ v[0] }}</td>
+      <td>{{ v[1] }}</td>
+      <td>{{ v[2] }}</td>
+      <td>{{ v[3] }}</td>
+      <td>{{ v[4] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

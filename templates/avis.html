@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des avis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>📝 Avis des utilisateurs</h1>
+
+    {% if avis_list %}
+        <ul>
+        {% for avis in avis_list %}
+            <li>{{ avis[0] }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun avis pour le moment.</p>
+    {% endif %}
+
+    <br>
+    <form action="/reset_avis" method="get" onsubmit="return confirm('Es-tu sûr de vouloir tout supprimer ?');">
+        <button type="submit" style="background-color: red; color: white; padding: 8px 12px; border-radius: 6px; border: none;">
+           🗑️ Supprimer tous les avis
+        </button>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+header {
+    background-color: rgb(255, 230, 88);
+    color: black;
+    text-align: center;
+    font-size: 40px;
+    padding: auto;
+}
+ 
+.evenement div{
+    background-color: rgb(255, 230, 88);
+    color: black;
+    width: 80%;
+    height: auto;
+    margin-left:10%;
+    margin-right: 10%;
+    font-size: 25px;
+}
+
+.evenement p {
+    text-align: left;
+    text-decoration: none;
+}
+
+.evenement {
+    color: white;
+    text-decoration: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+}
+
+.text a {
+    color: black;
+}
+
+.text {
+    margin-left: 10%;
+    margin-right: 7%;
+    font-size: 15px;
+}
+
+h2 {
+    margin-left: 5%;
+    color:rgb(27, 49, 217);
+    margin-top: 5%;
+}
+
+.avis {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.avis input {
+    width: 50%;
+    height: 20%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.avis input[type="submit"] {
+    background-color: rgb(27, 49, 217);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.star {
+    font-size: 20px;
+    cursor: pointer;
+    color: gray;
+}
+
+.star.active {
+    color: gold;
+}
+
+.cacher {
+    display: none;
+}   
