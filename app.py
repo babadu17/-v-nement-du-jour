@@ -26,20 +26,20 @@ def home():
         return redirect('/inscription')
     
     # Met à jour le nombre de visites et la date de dernière visite
-    try:
-        conn = get_connection()
-        cur = conn.cursor()
-
-        cur.execute("""
-            UPDATE visiteurs
-            SET nb_visites = nb_visites + 1, date_derniere_visite = CURRENT_TIMESTAMP
-            WHERE ip = %s
-        """, (ip,))
-        conn.commit()
-        cur.close()
-        conn.close()
-    except Exception as e:
-        print("⚠️ Erreur maj nb_visites :", e)
+    if ip != "127.0.0.1":
+        try:
+            conn = get_connection()
+            cur = conn.cursor()
+            cur.execute("""
+                UPDATE visiteurs
+                SET nb_visites = nb_visites + 1, date_derniere_visite = CURRENT_TIMESTAMP
+                WHERE ip = %s
+            """, (ip,))
+            conn.commit()
+            cur.close()
+            conn.close()
+        except Exception as e:
+            print("⚠️ Erreur maj nb_visites :", e)
 
     # Date du jour (jour et mois)
     today = datetime.now().strftime("%d-%m")
@@ -56,13 +56,14 @@ def home():
 def enregistrer_avis():
     avis = request.form.get("avis")
     note = request.form.get("note")
+    ip = get_ip()
 
     if avis or note:
         contenu = f"{note} étoiles : {avis}"
 
         conn = get_connection()
         cur = conn.cursor()
-        cur.execute("INSERT INTO avis (texte) VALUES (%s)", (contenu,))
+        cur.execute("INSERT INTO avis (texte, utilisateur_ip) VALUES (%s, %s)", (contenu,ip))
         conn.commit()
         conn.close()
 
@@ -74,7 +75,13 @@ def enregistrer_avis():
 def afficher_avis():
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("SELECT texte FROM avis ORDER BY id DESC")
+    cur.execute("""
+        SELECT a.texte, v.nom, v.prenom
+        FROM avis a
+        LEFT JOIN visiteurs v
+        ON a.utilisateur_ip = v.ip
+        ORDER BY a.id DESC
+    """)
     data = cur.fetchall()
     conn.close()
     
@@ -100,11 +107,11 @@ def statistiques_visiteurs():
     # 💡 Étape 1 : afficher ton IP dans la console la première fois
     print(f"[ADMIN PAGE] Accès tenté depuis IP : {ip}")
 
-    # 💡 Étape 2 : une fois ton IP connue, remplace "TON_ADRESSE_IP" ci-dessous
-    TON_ADRESSE_IP = "A_REMPLACER_APRES_TEST"
+    # 💡 Étape 2 : une fois ton IP connue
+    TON_ADRESSE_IP = "127.0.0.1"
 
-    if ip != TON_ADRESSE_IP:
-        return "⛔ Accès refusé", 403
+    #if ip != TON_ADRESSE_IP:
+        #return "⛔ Accès refusé", 403
 
     try:
         conn = get_connection()
@@ -125,6 +132,35 @@ def statistiques_visiteurs():
     except Exception as e:
         print("⚠️ Erreur chargement admin :", e)
         return "Erreur lors du chargement des visiteurs", 500
+
+@app.route("/inscription", methods=["GET", "POST"])
+def inscription():
+    if request.method == "POST":
+        nom = request.form.get("nom")
+        prenom = request.form.get("prenom")
+        ip = get_ip()
+
+        try:
+            conn = get_connection()
+            cur = conn.cursor()
+            cur.execute("""
+                INSERT INTO visiteurs (nom, prenom, ip, nb_visites, date_derniere_visite)
+                VALUES (%s, %s, %s, 1, CURRENT_TIMESTAMP)
+            """, (nom, prenom, ip))
+            conn.commit()
+            cur.close()
+            conn.close()
+
+            resp = make_response(redirect("/"))
+            resp.set_cookie('user_registered', 'yes', max_age=60*60*24*365)
+            return resp
+
+        except Exception as e:
+            print("⚠️ Erreur inscription visiteur :", e)
+            flash("⚠️ Une erreur est survenue lors de l'inscription. Veuillez réessayer.", "error")
+            return redirect("/inscription")
+
+    return render_template("inscription.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
