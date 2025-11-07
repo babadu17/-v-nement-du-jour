@@ -14,7 +14,11 @@ def get_connection():
     return psycopg2.connect(DB_URL)
 
 def get_ip():
-    return request.headers.get("X-Forwarded-For", request.remote_addr)
+    ip = request.headers.get("X-Forwarded-For", request.remote_addr)
+    # Si Render / Cloudflare renvoie plusieurs IP, on garde la première
+    if "," in ip:
+        ip = ip.split(",")[0].strip()
+    return ip
 
 @app.route("/")
 def home():
