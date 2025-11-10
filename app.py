@@ -15,10 +15,10 @@ def get_connection():
 
 def get_ip():
     ip = request.headers.get("X-Forwarded-For", request.remote_addr)
-    # Si Render / Cloudflare renvoie plusieurs IP, on garde la première
     if "," in ip:
         ip = ip.split(",")[0].strip()
-    return ip
+    return ip.strip()
+
 
 @app.route("/")
 def home():
@@ -30,20 +30,26 @@ def home():
         return redirect('/inscription')
     
     # Met à jour le nombre de visites et la date de dernière visite
-    if ip != "127.0.0.1":
+    if ip != "127.0.0.1":  # on ignore les visites locales
         try:
             conn = get_connection()
             cur = conn.cursor()
+
+            # Met à jour le compteur sans créer de doublon (PostgreSQL)
             cur.execute("""
-                UPDATE visiteurs
-                SET nb_visites = nb_visites + 1, date_derniere_visite = CURRENT_TIMESTAMP
-                WHERE ip = %s
-            """, (ip,))
+                INSERT INTO visiteurs (nom, prenom, ip, nb_visites)
+                VALUES (%s, %s, %s, 1)
+                ON CONFLICT (ip)
+                DO UPDATE SET 
+                    nb_visites = visiteurs.nb_visites + 1,
+                    date_derniere_visite = CURRENT_TIMESTAMP;
+            """, ("", "", ip))  # nom et prénom vides si déjà connus
+
             conn.commit()
             cur.close()
             conn.close()
         except Exception as e:
-            print("⚠️ Erreur maj nb_visites :", e)
+            print("⚠️ Erreur mise à jour visites :", e)
 
     # Date du jour (jour et mois)
     today = datetime.now().strftime("%d-%m")
