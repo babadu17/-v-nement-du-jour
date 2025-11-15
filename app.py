@@ -166,7 +166,7 @@ def inscription():
             conn.close()
 
             resp = make_response(redirect("/"))
-            resp.set_cookie('user_registered', 'yes', max_age=60*60*24*365)
+            resp.set_cookie('user_registered', 'yes', max_age=60*60*24*365*20)
             return resp
 
         except Exception as e:
