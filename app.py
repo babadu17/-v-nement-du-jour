@@ -37,13 +37,14 @@ def home():
 
             # Met à jour le compteur sans créer de doublon (PostgreSQL)
             cur.execute("""
-                INSERT INTO visiteurs (nom, prenom, ip, nb_visites)
-                VALUES (%s, %s, %s, 1)
-                ON CONFLICT (ip)
-                DO UPDATE SET 
-                    nb_visites = visiteurs.nb_visites + 1,
-                    date_derniere_visite = CURRENT_TIMESTAMP;
-            """, ("", "", ip))  # nom et prénom vides si déjà connus
+               INSERT INTO visiteurs (nom, prenom, ip, nb_visites)
+               VALUES (%s, %s, %s, %s)
+               ON CONFLICT (ip)
+               DO UPDATE SET 
+                 nb_visites = visiteurs.nb_visites + 1,
+                 date_derniere_visite = CURRENT_TIMESTAMP;
+            """, ("", "", ip, 1))
+
 
             conn.commit()
             cur.close()
