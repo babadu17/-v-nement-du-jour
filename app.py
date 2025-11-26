@@ -34,21 +34,14 @@ def home():
         try:
             conn = get_connection()
             cur = conn.cursor()
-
-            # Met à jour le compteur sans créer de doublon (PostgreSQL)
             cur.execute("""
                 INSERT INTO visiteurs (nom, prenom, ip, nb_visites, date_derniere_visite)
-                VALUES (%s, %s, %s, 1, CURRENT_TIMESTAMP)
+                VALUES ('', '', %s, 1, CURRENT_TIMESTAMP)
                 ON CONFLICT (ip)
                 DO UPDATE SET 
-                   nom = EXCLUDED.nom,
-                   prenom = EXCLUDED.prenom,
                    nb_visites = visiteurs.nb_visites + 1,
-                  date_derniere_visite = CURRENT_TIMESTAMP;
-            """, (nom, prenom, ip))
-
-
-
+                   date_derniere_visite = CURRENT_TIMESTAMP;
+            """, (ip,))
             conn.commit()
             cur.close()
             conn.close()
@@ -160,6 +153,11 @@ def inscription():
             cur.execute("""
                 INSERT INTO visiteurs (nom, prenom, ip, nb_visites, date_derniere_visite)
                 VALUES (%s, %s, %s, 1, CURRENT_TIMESTAMP)
+                ON CONFLICT (ip)
+                DO UPDATE SET
+                    nom = EXCLUDED.nom,
+                    prenom = EXCLUDED.prenom,
+                    date_derniere_visite = CURRENT_TIMESTAMP;
             """, (nom, prenom, ip))
             conn.commit()
             cur.close()
@@ -175,6 +173,7 @@ def inscription():
             return redirect("/inscription")
 
     return render_template("inscription.html")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
