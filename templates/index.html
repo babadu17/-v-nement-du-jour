@@ -5,68 +5,166 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Anniversaire historique du jour</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        <link rel="icon" herf="static/icon.png">
-        <meta name="description" content="Annivairesaires d'événements historiques du jour">
+        <link rel="icon" href="static/icon.png">
+        <meta name="description" content="Anniversaires d'événements historiques du jour">
     </head>
     <body>
         <header>
-            <p>Anniversaires historiques du {{ aujourdhui }}</p>
+            <p>📅 Anniversaires historiques du {{ aujourdhui }}</p>
         </header>
-        {% for event in events %}
-            <a href= {{ event.link }} target="_blank" class="evenement">
-                <div>
-                    <p>{{ event.year }} : {{ event.text }}</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
                 </div>
-            </a>
-        {% endfor %}
-        {% if not events %}
-            <div>
-                <p>Aucun événement enregistrer aujourd'hui</p>
-            </div>
-        {% endif %}
+            {% endif %}
+        {% endwith %}
 
-        <h2>Comment fonctionne ce site</h2>
-        <p class="text">
-            Ce site référence les anniversaires de quelques événements historiques mondiaux qui nous ont semblé majeurs.
-            On y trouve des batailles, des découvertes, des naissances de personnages célèbres, etc.
-            Pour chaque événement, il vous suffit de cliquer sur le texte pour avoir accès à une page Internet qui vous 
-            donnera plus d'informations sur le sujet évoqué.
-        </p>
-        <h2>À propos de ce site</h2>
-        <p class="text">
-            Ce site a été créé par <a href="https://mes-site.onrender.com" target="_blank">Bastian Bary</a>.
-            Les événements historiques sont rédigés par Philippe Evrard.
-            Passionné d'Histoire, il a déjà écrit plusieurs livres : <a href="https://www.thebookedition.com/fr/#307a/fullscreen/product/f[brand][]=Philippe+Evrard&m=and&p=2&q=Philippe+Evrard">Voici le lien</a>
-            L'hébergement est assuré par <a href="https://render.com" target="_blank">Render</a>.
-            Et le développement a été réalisé avec <a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a>.
-            Le code source se trouve sur <a href=https://github.com/babadu17/evenement-du-jour>github</a>
-        </p>
-        
-        <h2>En cas de problème</h2>
-        <p class="text">
-            Si vous constatez un problème, n'hésitez pas à me le signaler à l'adresse suivante : bastianbary17@icloud.com.
-        </p>
-        
-        <h2>Votre avis</h2>
-        <form action="/enregistrer_avis" method="post" class="avis">
-            <div id="stars">
-                <span class="star" data-value="1">★</span>
-                <span class="star" data-value="2">★</span>
-                <span class="star" data-value="3">★</span>
-                <span class="star" data-value="4">★</span>
-                <span class="star" data-value="5">★</span>
-            </div>
+        <main>
+            {% for event in events %}
+                <a href="{{ event.link }}" target="_blank" class="evenement">
+                    <div>
+                        <p><strong>{{ event.year }}</strong> : {{ event.text }}</p>
+                    </div>
+                </a>
+            {% endfor %}
             
-            <!-- champ caché pour stocker la note -->
-            <input type="hidden" name="note" id="note-value">
+            {% if not events %}
+                <div class="evenement">
+                    <div>
+                        <p>Aucun événement enregistré aujourd'hui</p>
+                    </div>
+                </div>
+            {% endif %}
 
-            <!-- ton champ texte -->
-            <input type="text" name="avis" placeholder="Écrivez votre avis ici..."><br>
+            <h2>💡 Comment fonctionne ce site</h2>
+            <p class="text">
+                Ce site référence les anniversaires de quelques événements historiques mondiaux qui nous ont semblé majeurs.
+                On y trouve des batailles, des découvertes, des naissances de personnages célèbres, etc.
+                Pour chaque événement, il vous suffit de cliquer sur le texte pour avoir accès à une page Internet qui vous 
+                donnera plus d'informations sur le sujet évoqué.
+            </p>
 
-            <!-- bouton -->
-            <input id="avis" type="submit" value="Envoyer votre avis">
-            <p>{{ message }}</p>
-        </form>
+            <h2>ℹ️ À propos de ce site</h2>
+            <p class="text">
+                Ce site a été créé par <a href="https://mes-site.onrender.com" target="_blank">Bastian Bary</a>.
+                Les événements historiques sont rédigés par Philippe Evrard.
+                Passionné d'Histoire, il a déjà écrit plusieurs livres : <a href="https://www.thebookedition.com/fr/#307a/fullscreen/product/f[brand][]=Philippe+Evrard&m=and&p=2&q=Philippe+Evrard" target="_blank">Voici le lien</a>
+                L'hébergement est assuré par <a href="https://render.com" target="_blank">Render</a>.
+                Et le développement a été réalisé avec <a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a>.
+                Le code source se trouve sur <a href="https://github.com/babadu17/evenement-du-jour" target="_blank">GitHub</a>
+            </p>
+            
+            <h2>🛠️ En cas de problème</h2>
+            <p class="text">
+                Si vous constatez un problème, n'hésitez pas à me le signaler à l'adresse suivante : 
+                <a href="mailto:bastianbary17@icloud.com">bastianbary17@icloud.com</a>
+            </p>
+            
+            <h2>⭐ Votre avis</h2>
+            <form action="/enregistrer_avis" method="post" class="avis">
+                <div id="stars">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+                
+                <input type="hidden" name="note" id="note-value">
+                <input type="text" name="avis" placeholder="Écrivez votre avis ici..." required><br>
+                <input id="avis" type="submit" value="Envoyer votre avis">
+            </form>
+        </main>
+
+        <p id="resultat" class="cacher">Note : 0 étoile(s)</p>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </body>
+</html><!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Anniversaire historique du jour</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="icon" href="static/icon.png">
+        <meta name="description" content="Anniversaires d'événements historiques du jour">
+    </head>
+    <body>
+        <header>
+            <p>📅 Anniversaires historiques du {{ aujourdhui }}</p>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <main>
+            {% for event in events %}
+                <a href="{{ event.link }}" target="_blank" class="evenement">
+                    <div>
+                        <p><strong>{{ event.year }}</strong> : {{ event.text }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+            
+            {% if not events %}
+                <div class="evenement">
+                    <div>
+                        <p>Aucun événement enregistré aujourd'hui</p>
+                    </div>
+                </div>
+            {% endif %}
+
+            <h2>💡 Comment fonctionne ce site</h2>
+            <p class="text">
+                Ce site référence les anniversaires de quelques événements historiques mondiaux qui nous ont semblé majeurs.
+                On y trouve des batailles, des découvertes, des naissances de personnages célèbres, etc.
+                Pour chaque événement, il vous suffit de cliquer sur le texte pour avoir accès à une page Internet qui vous 
+                donnera plus d'informations sur le sujet évoqué.
+            </p>
+
+            <h2>ℹ️ À propos de ce site</h2>
+            <p class="text">
+                Ce site a été créé par <a href="https://mes-site.onrender.com" target="_blank">Bastian Bary</a>.
+                Les événements historiques sont rédigés par Philippe Evrard.
+                Passionné d'Histoire, il a déjà écrit plusieurs livres : <a href="https://www.thebookedition.com/fr/#307a/fullscreen/product/f[brand][]=Philippe+Evrard&m=and&p=2&q=Philippe+Evrard" target="_blank">Voici le lien</a>
+                L'hébergement est assuré par <a href="https://render.com" target="_blank">Render</a>.
+                Et le développement a été réalisé avec <a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a>.
+                Le code source se trouve sur <a href="https://github.com/babadu17/evenement-du-jour" target="_blank">GitHub</a>
+            </p>
+            
+            <h2>🛠️ En cas de problème</h2>
+            <p class="text">
+                Si vous constatez un problème, n'hésitez pas à me le signaler à l'adresse suivante : 
+                <a href="mailto:bastianbary17@icloud.com">bastianbary17@icloud.com</a>
+            </p>
+            
+            <h2>⭐ Votre avis</h2>
+            <form action="/enregistrer_avis" method="post" class="avis">
+                <div id="stars">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+                
+                <input type="hidden" name="note" id="note-value">
+                <input type="text" name="avis" placeholder="Écrivez votre avis ici..." required><br>
+                <input id="avis" type="submit" value="Envoyer votre avis">
+            </form>
+        </main>
+
         <p id="resultat" class="cacher">Note : 0 étoile(s)</p>
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
