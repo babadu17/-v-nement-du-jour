@@ -1,85 +1,367 @@
-header {
-    background-color: rgb(255, 230, 88);
-    color: black;
-    text-align: center;
-    font-size: 40px;
-    padding: auto;
-}
- 
-.evenement div{
-    background-color: rgb(255, 230, 88);
-    color: black;
-    width: 80%;
-    height: auto;
-    margin-left:10%;
-    margin-right: 10%;
-    font-size: 25px;
-}
-
-.evenement p {
-    text-align: left;
-    text-decoration: none;
-}
-
-.evenement {
-    color: white;
-    text-decoration: none;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    height: 100%;
-    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
 }
 
-.text a {
-    color: black;
+/* Header moderne */
+header {
+    background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+header p {
+    font-size: clamp(24px, 5vw, 48px);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 0;
+}
+
+/* Conteneur principal */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Carte d'événement moderne */
+.evenement {
+    display: block;
+    text-decoration: none;
+    margin: 20px auto;
+    max-width: 900px;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+}
+
+.evenement:nth-child(1) { animation-delay: 0.1s; }
+.evenement:nth-child(2) { animation-delay: 0.2s; }
+.evenement:nth-child(3) { animation-delay: 0.3s; }
+.evenement:nth-child(4) { animation-delay: 0.4s; }
+.evenement:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.evenement div {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #667eea;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.evenement div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.evenement:hover div::before {
+    transform: translateX(0);
+}
+
+.evenement:hover div {
+    transform: translateX(10px);
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+    border-left-width: 8px;
+}
+
+.evenement p {
+    color: #333;
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.evenement p::first-letter {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #667eea;
+}
+
+/* Sections de contenu */
+h2 {
+    color: white;
+    font-size: 32px;
+    margin: 60px auto 20px;
+    max-width: 900px;
+    padding: 0 20px;
+    position: relative;
+    display: inline-block;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #ffd89b, #19547b);
+    border-radius: 2px;
 }
 
 .text {
-    margin-left: 10%;
-    margin-right: 7%;
-    font-size: 15px;
-}
-
-h2 {
-    margin-left: 5%;
-    color:rgb(27, 49, 217);
-    margin-top: 5%;
-}
-
-.avis {
-    margin-left: 10%;
-    margin-right: 10%;
-}
-
-input {
-    width: 50%;
-    height: 20%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 900px;
+    margin: 20px auto;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    line-height: 1.8;
     font-size: 16px;
 }
 
-input[type="submit"] {
-    background-color: rgb(27, 49, 217);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 5px;
+.text a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s ease;
 }
+
+.text a:hover {
+    border-bottom: 2px solid #667eea;
+}
+
+/* Formulaire d'avis moderne */
+.avis {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 30px auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+#stars {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 50px;
+}
+
 .star {
-    font-size: 20px;
     cursor: pointer;
-    color: gray;
+    color: #ddd;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.star:hover,
+.star.active {
+    color: #ffd700;
+    transform: scale(1.2);
 }
 
 .star.active {
-    color: gold;
+    animation: starPulse 0.3s ease;
 }
 
+@keyframes starPulse {
+    0%, 100% { transform: scale(1.2); }
+    50% { transform: scale(1.4); }
+}
+
+input[type="text"],
+input[type="submit"] {
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+input[type="submit"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+input[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Messages flash */
+.flash-messages {
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.flash {
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.flash.success {
+    background: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.flash.error {
+    background: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+.flash.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border-left: 4px solid #17a2b8;
+}
+
+/* Classe cachée */
 .cacher {
     display: none;
-}   
+}
+
+/* Page d'inscription moderne */
+.inscription-container {
+    max-width: 500px;
+    margin: 60px auto;
+    background: white;
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.inscription-container h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    header {
+        padding: 30px 15px;
+        margin-bottom: 30px;
+    }
+    
+    .evenement div {
+        padding: 20px;
+    }
+    
+    .evenement p {
+        font-size: 16px;
+    }
+    
+    h2 {
+        font-size: 24px;
+    }
+    
+    .text,
+    .avis {
+        padding: 20px;
+    }
+    
+    #stars {
+        font-size: 40px;
+    }
+}
+
+/* Animation au chargement */
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+    background-size: 200% 200%;
+    animation: gradient 15s ease infinite;
+}
