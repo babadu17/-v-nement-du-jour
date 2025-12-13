@@ -133,12 +133,6 @@ main {
     z-index: 1;
 }
 
-.evenement p::first-letter {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #667eea;
-}
-
 /* Sections de contenu */
 h2 {
     color: white;
