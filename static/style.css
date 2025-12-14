@@ -4,42 +4,52 @@
     box-sizing: border-box;
 }
 
+/* 🟡 FOND JAUNE DOUX ET ÉLÉGANT */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #FFD54F 0%, #FFEB3B 50%, #FFF176 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 10s ease infinite;
     min-height: 100vh;
     padding: 20px;
     color: #333;
 }
 
-/* Header moderne avec dégradé VERT → BLEU */
-/* 🎨 DÉGRADÉ VERT → BLEU 🎨 */
-header {
-    background: linear-gradient(135deg, #11998e 0%, #38ef7d 50%, #4facfe 100%);
-    color: white;
-    text-align: center;
-    padding: 40px 20px;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    margin-bottom: 40px;
-    animation: slideDown 0.5s ease;
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-/* 
-💡 AUTRES VARIANTES VERT → BLEU :
+/* 💚💙 HEADER avec dégradé vert → turquoise → bleu */
+header {
+    background: linear-gradient(135deg, #26A69A 0%, #4DD0E1 50%, #29B6F6 100%);
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    border-radius: 25px;
+    box-shadow: 0 15px 50px rgba(38, 166, 154, 0.3);
+    margin-bottom: 40px;
+    animation: slideDown 0.6s ease;
+    position: relative;
+    overflow: hidden;
+}
 
-🌊 Vert émeraude → Bleu océan :
-background: linear-gradient(135deg, #11998e 0%, #38ef7d 50%, #4facfe 100%);
+header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: shimmer 3s ease-in-out infinite;
+}
 
-🌿 Vert nature → Bleu ciel :
-background: linear-gradient(135deg, #56ab2f 0%, #a8e063 50%, #00d2ff 100%);
-
-💎 Vert menthe → Bleu turquoise :
-background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
-
-🏝️ Vert tropical → Bleu profond :
-background: linear-gradient(135deg, #00b09b 0%, #96c93d 50%, #0072ff 100%);
-*/
+@keyframes shimmer {
+    0%, 100% { transform: translate(-25%, -25%); }
+    50% { transform: translate(25%, 25%); }
+}
 
 @keyframes slideDown {
     from {
@@ -53,10 +63,12 @@ background: linear-gradient(135deg, #00b09b 0%, #96c93d 50%, #0072ff 100%);
 }
 
 header p {
-    font-size: clamp(24px, 5vw, 48px);
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
     margin: 0;
+    position: relative;
+    z-index: 1;
 }
 
 /* Conteneur principal */
@@ -65,18 +77,18 @@ main {
     margin: 0 auto;
 }
 
-/* Carte d'événement moderne */
+/* 🎯 CARTES D'ÉVÉNEMENTS - Design amélioré */
 .evenement {
     display: block;
     text-decoration: none;
     margin: 20px auto;
     max-width: 900px;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     animation: fadeInUp 0.6s ease forwards;
     opacity: 0;
 }
 
-/* Animation progressive pour TOUS les événements (jusqu'à 20) */
+/* Animation progressive pour TOUS les événements */
 .evenement:nth-child(1) { animation-delay: 0.1s; }
 .evenement:nth-child(2) { animation-delay: 0.2s; }
 .evenement:nth-child(3) { animation-delay: 0.3s; }
@@ -111,15 +123,17 @@ main {
 
 .evenement div {
     background: white;
-    padding: 25px 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid #11998e; /* Bordure verte */
-    transition: all 0.3s ease;
+    padding: 28px 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(38, 166, 154, 0.15);
+    border-left: 6px solid #26A69A;
+    border-top: 2px solid rgba(38, 166, 154, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
 }
 
+/* Effet de dégradé au survol */
 .evenement div::before {
     content: '';
     position: absolute;
@@ -127,9 +141,9 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(17, 153, 142, 0.05) 0%, rgba(79, 172, 254, 0.05) 100%); /* Dégradé vert → bleu transparent */
+    background: linear-gradient(135deg, rgba(38, 166, 154, 0.08) 0%, rgba(77, 208, 225, 0.08) 50%, rgba(41, 182, 246, 0.08) 100%);
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
 }
 
 .evenement:hover div::before {
@@ -137,158 +151,181 @@ main {
 }
 
 .evenement:hover div {
-    transform: translateX(10px);
-    box-shadow: 0 8px 30px rgba(17, 153, 142, 0.3); /* Ombre verte */
-    border-left-width: 8px;
+    transform: translateX(15px) translateY(-5px);
+    box-shadow: 0 15px 40px rgba(38, 166, 154, 0.25);
+    border-left-width: 10px;
+    border-left-color: #4DD0E1;
 }
 
 .evenement p {
-    color: #333;
+    color: #2C3E50;
     font-size: 18px;
-    line-height: 1.6;
+    line-height: 1.7;
     margin: 0;
     position: relative;
     z-index: 1;
 }
 
-/* Sections de contenu */
+.evenement p strong {
+    color: #26A69A;
+    font-size: 1.15em;
+    font-weight: 800;
+}
+
+/* 📑 SECTIONS DE CONTENU */
 h2 {
-    color: white;
-    font-size: 32px;
-    margin: 60px auto 20px;
+    color: #2C3E50;
+    font-size: 36px;
+    margin: 70px auto 25px;
     max-width: 900px;
     padding: 0 20px;
     position: relative;
     display: inline-block;
+    font-weight: 700;
 }
 
 h2::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -12px;
     left: 20px;
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(90deg, #11998e, #4facfe); /* Dégradé vert → bleu */
-    border-radius: 2px;
+    width: 80px;
+    height: 5px;
+    background: linear-gradient(90deg, #26A69A 0%, #4DD0E1 50%, #29B6F6 100%);
+    border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(38, 166, 154, 0.3);
 }
 
 .text {
     background: white;
-    padding: 30px;
-    border-radius: 15px;
+    padding: 35px;
+    border-radius: 18px;
     max-width: 900px;
     margin: 20px auto;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    line-height: 1.8;
-    font-size: 16px;
+    box-shadow: 0 8px 25px rgba(38, 166, 154, 0.12);
+    line-height: 1.9;
+    font-size: 17px;
+    border-top: 3px solid #26A69A;
 }
 
 .text a {
-    color: #11998e; /* Liens en vert */
+    color: #26A69A;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     border-bottom: 2px solid transparent;
-    transition: border-bottom 0.3s ease;
+    transition: all 0.3s ease;
+    padding-bottom: 2px;
 }
 
 .text a:hover {
-    border-bottom: 2px solid #11998e; /* Soulignement vert au survol */
+    border-bottom: 2px solid #26A69A;
+    color: #1E88E5;
 }
 
-/* Formulaire d'avis moderne */
+/* ⭐ FORMULAIRE D'AVIS MODERNE */
 .avis {
     background: white;
-    padding: 40px;
-    border-radius: 20px;
-    max-width: 600px;
-    margin: 30px auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    padding: 45px;
+    border-radius: 22px;
+    max-width: 650px;
+    margin: 40px auto;
+    box-shadow: 0 12px 45px rgba(38, 166, 154, 0.18);
+    border-top: 4px solid #26A69A;
 }
 
 #stars {
     text-align: center;
-    margin-bottom: 25px;
-    font-size: 50px;
+    margin-bottom: 30px;
+    font-size: 55px;
 }
 
 .star {
     cursor: pointer;
-    color: #ddd;
-    transition: all 0.2s ease;
+    color: #E0E0E0;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: inline-block;
+    margin: 0 5px;
 }
 
 .star:hover,
 .star.active {
-    color: #ffd700;
-    transform: scale(1.2);
+    color: #FFD700;
+    transform: scale(1.3) rotate(15deg);
+    filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.4));
 }
 
 .star.active {
-    animation: starPulse 0.3s ease;
+    animation: starPulse 0.4s ease;
 }
 
 @keyframes starPulse {
-    0%, 100% { transform: scale(1.2); }
-    50% { transform: scale(1.4); }
+    0%, 100% { transform: scale(1.3) rotate(15deg); }
+    50% { transform: scale(1.5) rotate(15deg); }
 }
 
 input[type="text"],
 input[type="submit"] {
     width: 100%;
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 16px;
+    padding: 16px 22px;
+    margin-bottom: 18px;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    font-size: 17px;
     font-family: inherit;
     transition: all 0.3s ease;
 }
 
 input[type="text"]:focus {
     outline: none;
-    border-color: #11998e; /* Bordure verte au focus */
-    box-shadow: 0 0 0 3px rgba(17, 153, 142, 0.1);
+    border-color: #26A69A;
+    box-shadow: 0 0 0 4px rgba(38, 166, 154, 0.15);
+    transform: translateY(-2px);
 }
 
 input[type="submit"] {
-    background: linear-gradient(135deg, #11998e 0%, #4facfe 100%); /* Bouton vert → bleu */
+    background: linear-gradient(135deg, #26A69A 0%, #4DD0E1 50%, #29B6F6 100%);
+    background-size: 200% 200%;
     color: white;
     border: none;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 10px;
+    letter-spacing: 1.5px;
+    margin-top: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
 }
 
 input[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(17, 153, 142, 0.4); /* Ombre verte */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(38, 166, 154, 0.4);
+    background-position: 100% 0;
 }
 
 input[type="submit"]:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(38, 166, 154, 0.3);
 }
 
-/* Messages flash */
+/* 💬 MESSAGES FLASH */
 .flash-messages {
     max-width: 900px;
-    margin: 20px auto;
+    margin: 25px auto;
 }
 
 .flash {
-    padding: 15px 20px;
-    border-radius: 10px;
-    margin-bottom: 15px;
+    padding: 18px 25px;
+    border-radius: 12px;
+    margin-bottom: 18px;
     animation: slideIn 0.5s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateX(-20px);
+        transform: translateX(-30px);
     }
     to {
         opacity: 1;
@@ -297,69 +334,84 @@ input[type="submit"]:active {
 }
 
 .flash.success {
-    background: #d4edda;
-    color: #155724;
-    border-left: 4px solid #28a745;
+    background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%);
+    color: #2E7D32;
+    border-left: 5px solid #4CAF50;
 }
 
 .flash.error {
-    background: #f8d7da;
-    color: #721c24;
-    border-left: 4px solid #dc3545;
+    background: linear-gradient(135deg, #FFCDD2 0%, #EF9A9A 100%);
+    color: #C62828;
+    border-left: 5px solid #F44336;
 }
 
 .flash.info {
-    background: #d1ecf1;
-    color: #0c5460;
-    border-left: 4px solid #17a2b8;
+    background: linear-gradient(135deg, #B3E5FC 0%, #81D4FA 100%);
+    color: #01579B;
+    border-left: 5px solid #03A9F4;
 }
 
-/* Classe cachée */
+/* 🚫 CLASSE CACHÉE */
 .cacher {
     display: none;
 }
 
-/* Page d'inscription moderne */
+/* 📝 PAGE D'INSCRIPTION MODERNE */
 .inscription-container {
-    max-width: 500px;
-    margin: 60px auto;
+    max-width: 550px;
+    margin: 80px auto;
     background: white;
-    padding: 50px 40px;
-    border-radius: 20px;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-    animation: scaleIn 0.5s ease;
+    padding: 55px 45px;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(38, 166, 154, 0.2);
+    animation: scaleIn 0.6s ease;
+    border-top: 5px solid #26A69A;
 }
 
 @keyframes scaleIn {
     from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(0.9) translateY(20px);
     }
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1) translateY(0);
     }
 }
 
 .inscription-container h2 {
-    color: #333;
+    color: #2C3E50;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+    font-size: 32px;
 }
 
-/* Responsive */
+.inscription-container p {
+    text-align: center;
+    color: #546E7A;
+    margin-bottom: 35px;
+    font-size: 16px;
+}
+
+/* 📱 RESPONSIVE */
 @media (max-width: 768px) {
     body {
-        padding: 10px;
+        padding: 12px;
     }
     
     header {
-        padding: 30px 15px;
+        padding: 35px 18px;
         margin-bottom: 30px;
+        border-radius: 18px;
+    }
+    
+    header p {
+        font-size: clamp(22px, 6vw, 40px);
     }
     
     .evenement div {
-        padding: 20px;
+        padding: 22px 25px;
+        border-radius: 15px;
     }
     
     .evenement p {
@@ -367,43 +419,31 @@ input[type="submit"]:active {
     }
     
     h2 {
-        font-size: 24px;
+        font-size: 26px;
+        margin: 50px auto 20px;
     }
     
     .text,
     .avis {
-        padding: 20px;
+        padding: 25px;
+        border-radius: 15px;
     }
     
     #stars {
-        font-size: 40px;
+        font-size: 45px;
+    }
+    
+    .inscription-container {
+        padding: 40px 30px;
+        margin: 40px auto;
     }
 }
 
-/* Animation au chargement */
-@keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* ✨ EFFETS SUPPLÉMENTAIRES */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
-
-/* 🎨 FOND JAUNE 🎨 */
-body {
-    background: #FFA500; /* Fond jaune uni */
-}
-
-/* 
-💡 AUTRES VARIANTES DE JAUNE :
-
-🟡 Jaune vif :
-background: #FFE600;
-
-🌼 Jaune pastel doux :
-background: #FFF9C4;
-
-🌟 Jaune doré :
-background: #FFD700;
-
-🍋 Jaune citron :
-background: #FFEB3B;
-*/
