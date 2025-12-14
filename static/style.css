@@ -12,9 +12,10 @@ body {
     color: #333;
 }
 
-/* Header moderne */
+/* Header moderne avec dégradé VERT → BLEU */
+/* 🎨 DÉGRADÉ VERT → BLEU 🎨 */
 header {
-    background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 50%, #4facfe 100%);
     color: white;
     text-align: center;
     padding: 40px 20px;
@@ -23,6 +24,22 @@ header {
     margin-bottom: 40px;
     animation: slideDown 0.5s ease;
 }
+
+/* 
+💡 AUTRES VARIANTES VERT → BLEU :
+
+🌊 Vert émeraude → Bleu océan :
+background: linear-gradient(135deg, #11998e 0%, #38ef7d 50%, #4facfe 100%);
+
+🌿 Vert nature → Bleu ciel :
+background: linear-gradient(135deg, #56ab2f 0%, #a8e063 50%, #00d2ff 100%);
+
+💎 Vert menthe → Bleu turquoise :
+background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+
+🏝️ Vert tropical → Bleu profond :
+background: linear-gradient(135deg, #00b09b 0%, #96c93d 50%, #0072ff 100%);
+*/
 
 @keyframes slideDown {
     from {
@@ -59,6 +76,7 @@ main {
     opacity: 0;
 }
 
+/* Animation progressive pour TOUS les événements (jusqu'à 20) */
 .evenement:nth-child(1) { animation-delay: 0.1s; }
 .evenement:nth-child(2) { animation-delay: 0.2s; }
 .evenement:nth-child(3) { animation-delay: 0.3s; }
@@ -96,7 +114,7 @@ main {
     padding: 25px 30px;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid #667eea;
+    border-left: 5px solid #11998e; /* Bordure verte */
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -109,7 +127,7 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(17, 153, 142, 0.05) 0%, rgba(79, 172, 254, 0.05) 100%); /* Dégradé vert → bleu transparent */
     transform: translateX(-100%);
     transition: transform 0.3s ease;
 }
@@ -120,7 +138,7 @@ main {
 
 .evenement:hover div {
     transform: translateX(10px);
-    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 30px rgba(17, 153, 142, 0.3); /* Ombre verte */
     border-left-width: 8px;
 }
 
@@ -131,6 +149,12 @@ main {
     margin: 0;
     position: relative;
     z-index: 1;
+}
+
+.evenement p::first-letter {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #11998e; /* Première lettre en vert */
 }
 
 /* Sections de contenu */
@@ -151,7 +175,7 @@ h2::after {
     left: 20px;
     width: 60px;
     height: 4px;
-    background: linear-gradient(90deg, #ffd89b, #19547b);
+    background: linear-gradient(90deg, #11998e, #4facfe); /* Dégradé vert → bleu */
     border-radius: 2px;
 }
 
@@ -167,7 +191,7 @@ h2::after {
 }
 
 .text a {
-    color: #667eea;
+    color: #11998e; /* Liens en vert */
     text-decoration: none;
     font-weight: 600;
     border-bottom: 2px solid transparent;
@@ -175,7 +199,7 @@ h2::after {
 }
 
 .text a:hover {
-    border-bottom: 2px solid #667eea;
+    border-bottom: 2px solid #11998e; /* Soulignement vert au survol */
 }
 
 /* Formulaire d'avis moderne */
@@ -230,12 +254,12 @@ input[type="submit"] {
 
 input[type="text"]:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #11998e; /* Bordure verte au focus */
+    box-shadow: 0 0 0 3px rgba(17, 153, 142, 0.1);
 }
 
 input[type="submit"] {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #11998e 0%, #4facfe 100%); /* Bouton vert → bleu */
     color: white;
     border: none;
     cursor: pointer;
@@ -247,7 +271,7 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 5px 20px rgba(17, 153, 142, 0.4); /* Ombre verte */
 }
 
 input[type="submit"]:active {
@@ -369,8 +393,23 @@ input[type="submit"]:active {
     100% { background-position: 0% 50%; }
 }
 
+/* 🎨 FOND JAUNE 🎨 */
 body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
-    background-size: 200% 200%;
-    animation: gradient 15s ease infinite;
+    background: #FFE600; /* Fond jaune uni */
 }
+
+/* 
+💡 AUTRES VARIANTES DE JAUNE :
+
+🟡 Jaune vif :
+background: #FFE600;
+
+🌼 Jaune pastel doux :
+background: #FFF9C4;
+
+🌟 Jaune doré :
+background: #FFD700;
+
+🍋 Jaune citron :
+background: #FFEB3B;
+*/
