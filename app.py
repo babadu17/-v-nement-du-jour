@@ -63,15 +63,26 @@ def home():
             print("⚠️ Erreur mise à jour visites :", e)
 
     # Date du jour (jour et mois)
-    today = datetime.now().strftime("%d-%m")
+    today_key = datetime.now().strftime("%d-%m")  # Format pour chercher dans events.json (ex: "16-12")
+    
+    # Date formatée pour l'affichage (ex: "16 décembre")
+    mois_francais = {
+        "01": "janvier", "02": "février", "03": "mars", "04": "avril",
+        "05": "mai", "06": "juin", "07": "juillet", "08": "août",
+        "09": "septembre", "10": "octobre", "11": "novembre", "12": "décembre"
+    }
+    jour = datetime.now().strftime("%d").lstrip("0")  # Enlève le 0 devant (ex: "16" au lieu de "16")
+    mois_num = datetime.now().strftime("%m")
+    mois = mois_francais.get(mois_num, "")
+    today_display = f"{jour} {mois}"  # Ex: "16 décembre"
 
     # Charger les événements depuis events.json
     with open("events.json", "r", encoding="utf-8") as f:
        events = json.load(f)
 
     # Récupérer les événements correspondants à la date du jour
-    todays_events = events.get(today, ["Aucun événement pour aujourd'hui"])
-    return render_template("index.html", events=todays_events, aujourdhui=today)
+    todays_events = events.get(today_key, ["Aucun événement pour aujourd'hui"])
+    return render_template("index.html", events=todays_events, aujourdhui=today_display)
 
 @app.route("/enregistrer_avis", methods=["POST"])
 def enregistrer_avis():
@@ -200,19 +211,6 @@ def inscription():
 
     return render_template("inscription.html")
 
-@app.route("/nettoyer_base_donnees_temporaire")
-def nettoyer_base():
-    try:
-        conn = get_connection()
-        cur = conn.cursor()
-        cur.execute("DELETE FROM visiteurs WHERE nom = '' OR prenom = '' OR nom IS NULL OR prenom IS NULL")
-        deleted = cur.rowcount
-        conn.commit()
-        cur.close()
-        conn.close()
-        return f"✅ {deleted} entrée(s) supprimée(s) avec succès !"
-    except Exception as e:
-        return f"❌ Erreur : {e}"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
