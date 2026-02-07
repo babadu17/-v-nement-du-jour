@@ -206,7 +206,7 @@ def inscription():
 
         except Exception as e:
             print(f"[INSCRIPTION] ❌ Erreur : {e}")
-            flash("⚠️ Une erreur est survenue lors de l'inscription. Veuillez réessayer. Et me le signaler par message au 07 87 33 84 32", "error")
+            flash("⚠️ Une erreur est survenue lors de l'inscription. Veuillez réessayer. Et me le signaler au 07 87 33 84 32", "error")
             return redirect("/inscription")
 
     return render_template("inscription.html")
